@@ -1,12 +1,20 @@
+package tests;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.JSON;
+import static listeners.CustomAllureListener.withCustomTemplates;
 import static org.hamcrest.CoreMatchers.is;
 
 public class DemoWorkshopApiTests {
     @Test
+    @DisplayName("Добавление в корзину")
     void addToCartTest() {
         given()
+                .filter(withCustomTemplates())
+                .contentType(JSON)
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")
                 .body("addtocart_31.EnteredQuantity=1")
                 .when()
@@ -21,8 +29,10 @@ public class DemoWorkshopApiTests {
     }
 
     @Test
+    @DisplayName("Добавление в вишлист")
     void addToWishlistTest() {
         given()
+                .filter(withCustomTemplates())
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")
                 .body("addtocart_53.EnteredQuantity=1")
                 .when()
